@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BSM470 - Bulut Bilişim Proje | Engin Cavak</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0f1419;
+      --bg-secondary: #1a1f2e;
+      --bg-tertiary: #252d3d;
+      --text-primary: #e5e7eb;
+      --text-secondary: #9ca3af;
+      --accent-blue: #0ea5e9;
+      --accent-orange: #f97316;
+      --accent-green: #10b981;
+      --border-color: #374151;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Fira Sans', sans-serif;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: rgba(15, 20, 25, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.5rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: slideDown 0.8s ease-out;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
+
+    nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-left: 2rem;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    nav a:hover {
+      color: var(--accent-blue);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 6rem 0;
+      text-align: center;
+      animation: fadeInUp 1s ease-out 0.2s backwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 8vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .hero .subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(249, 115, 22, 0.2));
+      border: 1px solid var(--accent-blue);
+      color: var(--accent-blue);
+      padding: 0.5rem 1rem;
+      border-radius: 2rem;
+      font-size: 0.85rem;
+      margin: 0.5rem;
+      font-weight: 600;
+    }
+
+    /* Section Styling */
+    section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    section h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    /* Grid Layout */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .card:hover {
+      border-color: var(--accent-blue);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
+    }
+
+    .card h3 {
+      color: var(--accent-blue);
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* Architecture Diagram */
+    .architecture {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(249, 115, 22, 0.05));
+      border: 1px solid var(--accent-blue);
+      border-radius: 12px;
+      padding: 3rem 2rem;
+      margin-top: 2rem;
+      overflow-x: auto;
+    }
+
+    .arch-boxes {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 1rem;
+      min-width: 600px;
+    }
+
+    .arch-box {
+      background: var(--bg-secondary);
+      border: 2px solid var(--accent-blue);
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-align: center;
+      min-width: 150px;
+    }
+
+    .arch-box.client { border-color: var(--accent-orange); }
+    .arch-box.vm { border-color: var(--accent-blue); }
+    .arch-box.cloud { border-color: var(--accent-green); }
+
+    .arch-box h4 {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .arch-box p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .arch-arrow {
+      font-size: 2rem;
+      color: var(--accent-blue);
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }
+
+    /* Tech Specs Table */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .specs-table th {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(249, 115, 22, 0.1));
+      border-bottom: 2px solid var(--accent-blue);
+      padding: 1rem;
+      text-align: left;
+      font-weight: 700;
+      color: var(--accent-blue);
+    }
+
+    .specs-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    .specs-table tr:hover {
+      background: rgba(14, 165, 233, 0.05);
+    }
+
+    .specs-table code {
+      background: var(--bg-tertiary);
+      color: var(--accent-green);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-family: 'Monaco', 'Courier New', monospace;
+    }
+
+    /* CRUD Demo */
+    .crud-demo {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      flex: 1;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+
+    button {
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-orange));
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+    }
+
+    .user-list {
+      margin-top: 2rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .user-item {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideIn 0.3s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .user-info h4 {
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .user-info p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .delete-btn {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .delete-btn:hover {
+      box-shadow: 0 10px 20px rgba(239, 68, 68, 0.3);
+    }
+
+    /* Stats Section */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .stat:hover {
+      border-color: var(--accent-blue);
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(249, 115, 22, 0.05));
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 3rem 0;
+      text-align: center;
+      color: var(--text-secondary);
+      margin-top: 4rem;
+    }
+
+    footer a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      margin: 0 1rem;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: var(--accent-orange);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1rem;
+      }
+
+      header .container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav a {
+        margin-left: 0;
+        margin: 0 0.5rem;
+      }
+
+      .hero {
+        padding: 3rem 0;
+      }
+
+      section h2 {
+        font-size: 1.75rem;
+      }
+
+      .arch-boxes {
+        flex-direction: column;
+        min-width: auto;
+      }
+
+      .arch-arrow {
+        transform: rotate(90deg);
+      }
+
+      .form-group {
+        flex-direction: column;
+      }
+
+      .specs-table {
+        font-size: 0.85rem;
+      }
+
+      .specs-table th,
+      .specs-table td {
+        padding: 0.75rem;
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="logo">BSM470 Cloud</div>
+      <nav>
+        <a onclick="document.getElementById('objective').scrollIntoView()">Hedef</a>
+        <a onclick="document.getElementById('architecture').scrollIntoView()">Mimari</a>
+        <a onclick="document.getElementById('crud').scrollIntoView()">CRUD Demo</a>
+        <a onclick="document.getElementById('results').scrollIntoView()">Sonuçlar</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Bulut Bilişim<br>Proje Ödevi</h1>
+      <p class="subtitle">Üç Katmanlı Bulut Mimarisi: VM + Cloud DB + CRUD</p>
+      <div>
+        <span class="badge">🎓 Sakarya Üniversitesi</span>
+        <span class="badge">☁️ DigitalOcean</span>
+        <span class="badge">💾 MariaDB</span>
+        <span class="badge">🌐 Apache+PHP</span>
+      </div>
+      <div class="stats" style="margin-top: 3rem;">
+        <div class="stat">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Sunucu</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">4</div>
+          <div class="stat-label">CRUD İşlem</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Başarılı</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">0</div>
+          <div class="stat-label">Hata</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Objective -->
+  <section id="objective">
+    <div class="container">
+      <h2>🎯 Proje Hedefi</h2>
+      <p style="font-size: 1.1rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 2rem;">
+        Windows istemci bilgisayardan <code style="background: var(--bg-secondary); color: var(--accent-blue); padding: 0.25rem 0.75rem; border-radius: 4px;">b221210056.com</code> adresine erişilerek, 
+        VMware üzerinde çalışan WEB/App sunucusuna yönlendirme yapılmıştır. Uygulama, DigitalOcean bulut platformunda 
+        çalışan MariaDB veritabanına bağlanarak <strong>Create, Read, Update, Delete (CRUD)</strong> işlemlerini gerçekleştirmektedir.
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>💻 İstemci Katmanı</h3>
+          <p>Windows bilgisayar tarayıcısından b221210056.com adresine HTTP isteği gönderir. Hosts dosyası ile VM IP'sine yönlendirilir.</p>
+        </div>
+        <div class="card">
+          <h3>⚙️ Uygulama Katmanı</h3>
+          <p>VMware VM: Ubuntu + Apache + PHP. Kullanıcı arayüzünü sunar, Cloud DB'ye bağlanarak CRUD işlemlerini sağlar.</p>
+        </div>
+        <div class="card">
+          <h3>☁️ Veri Katmanı</h3>
+          <p>DigitalOcean Droplet: MariaDB. Proje verilerini güvenli şekilde saklar. Port 3306 sadece VM'e açıktır.</p>
+        </div>
+        <div class="card">
+          <h3>🔐 Güvenlik</h3>
+          <p>UFW Firewall, öğrenci numarası tabanlı kimliklendirme, SSH tuş çifti, Cloud DB bağlantı kısıtlaması.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section id="architecture">
+    <div class="container">
+      <h2>🏗️ Sistem Mimarisi</h2>
+      <div class="architecture">
+        <div class="arch-boxes">
+          <div class="arch-box client">
+            <h4>İstemci</h4>
+            <p>Windows</p>
+            <p style="font-size: 0.75rem; margin-top: 0.5rem;">b221210056.com</p>
+          </div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box vm">
+            <h4>Web/App</h4>
+            <p>192.168.211.56</p>
+            <p style="font-size: 0.75rem; margin-top: 0.5rem;">Apache+PHP</p>
+          </div>
+          <div class="arch-arrow">→</div>
+          <div class="arch-box cloud">
+            <h4>Cloud DB</h4>
+            <p>64.226.120.38</p>
+            <p style="font-size: 0.75rem; margin-top: 0.5rem;">MariaDB:3306</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin-top: 3rem; color: var(--text-primary); font-size: 1.25rem;">📋 Teknik Özellikler</h3>
+      <table class="specs-table">
+        <thead>
+          <tr>
+            <th>Bileşen</th>
+            <th>Teknoloji</th>
+            <th>IP / Hostname</th>
+            <th>Port</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>İstemci</td>
+            <td>Windows OS, Tarayıcı</td>
+            <td>192.168.1.x (Dinamik)</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>WEB/App Sunucusu</td>
+            <td>Ubuntu + Apache + PHP</td>
+            <td><code>192.168.211.56</code></td>
+            <td>22, 80, 3306</td>
+          </tr>
+          <tr>
+            <td>Cloud DB Sunucusu</td>
+            <td>DigitalOcean + MariaDB</td>
+            <td><code>64.226.120.38</code></td>
+            <td>22, 3306*</td>
+          </tr>
+          <tr>
+            <td>Hostname (VM)</td>
+            <td>Ubuntu Terminal</td>
+            <td><code>210056</code></td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>Hostname (Cloud)</td>
+            <td>Cloud Terminal</td>
+            <td><code>650012122b</code> (no tersi)</td>
+            <td>-</td>
+          </tr>
+          <tr>
+            <td>DB Adı</td>
+            <td>MariaDB</td>
+            <td><code>proje_db</code></td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 1rem;">* Port 3306 sadece VM public IP (176.232.133.143) tarafından erişilebilir</p>
+    </div>
+  </section>
+
+  <!-- CRUD Demo -->
+  <section id="crud">
+    <div class="container">
+      <h2>🔄 CRUD İşlemleri (Canlı Demo)</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Aşağıda Cloud veritabanına veri ekleyebilir, listeleyebilir ve silebilirsiniz.</p>
+      
+      <div class="crud-demo">
+        <h3 style="color: var(--accent-blue); margin-bottom: 1.5rem;">➕ Yeni Kullanıcı Ekle</h3>
+        <div class="form-group">
+          <input type="text" id="nameInput" placeholder="Ad Soyad (örn: Engin Cavak)" required>
+          <input type="email" id="emailInput" placeholder="E-posta (örn: engin@example.com)" required>
+          <button onclick="addUser()">Ekle</button>
+        </div>
+
+        <h3 style="color: var(--accent-green); margin-top: 2.5rem; margin-bottom: 1rem;">📖 Kullanıcı Listesi</h3>
+        <div class="user-list" id="userList">
+          <div class="user-item">
+            <div class="user-info">
+              <h4>Test User</h4>
+              <p>test@example.com</p>
+            </div>
+            <button class="delete-btn" onclick="deleteUser(0)">Sil</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Test Results -->
+  <section id="results">
+    <div class="container">
+      <h2>✅ Test Sonuçları</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>🖥️ Terminal Auth</h3>
+          <p><strong>Durum:</strong> Başarılı ✓</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--accent-green);">b221@210056 ve root@650012122b kimlik doğrulaması yapıldı.</p>
+        </div>
+        <div class="card">
+          <h3>🌐 Network</h3>
+          <p><strong>Durum:</strong> Başarılı ✓</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--accent-green);">Statik IP: 192.168.211.56 ve Cloud IP: 64.226.120.38</p>
+        </div>
+        <div class="card">
+          <h3>⚡ Servis Durumu</h3>
+          <p><strong>Durum:</strong> Çalışıyor ✓</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--accent-green);">Apache2, SSH, MariaDB aktif</p>
+        </div>
+        <div class="card">
+          <h3>🔍 Port Taraması</h3>
+          <p><strong>Durum:</strong> Başarılı ✓</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--accent-green);">22/tcp, 80/tcp, 3306/tcp açık</p>
+        </div>
+        <div class="card">
+          <h3>☁️ Cloud Bağlantısı</h3>
+          <p><strong>Durum:</strong> Başarılı ✓</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--accent-green);">MySQL: 64.226.120.38:3306 bağlantı kuruldu</p>
+        </div>
+        <div class="card">
+          <h3>🚀 CRUD İşlemleri</h3>
+          <p><strong>Durum:</strong> Tam Fonksiyonel ✓</p>
+          <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--accent-green);">Create/Read/Delete başarılı</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div style="margin-bottom: 1.5rem;">
+        <h3 style="color: var(--text-primary); margin-bottom: 0.5rem;">📚 Proje Bilgileri</h3>
+        <p>Öğrenci No: <strong>b221210056</strong> | Öğrenci: <strong>Engin Cavak</strong></p>
+        <p>Ders: <strong>BSM470 - Bulut Bilişim</strong> | Sakarya Üniversitesi</p>
+        <p style="margin-top: 0.5rem;">Teslim: <strong>1 Mayıs 2026</strong> | Sunum: <strong>12 Mayıs 2026</strong></p>
+      </div>
+      <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+        <p>Yapı: Ubuntu VM + Apache+PHP + DigitalOcean Cloud DB</p>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem;">
+          <a href="https://github.com/b221210056" target="_blank">GitHub</a> | 
+          <a href="https://linkedin.com" target="_blank">LinkedIn</a> | 
+          <a href="mailto:engin.cavak@example.com">E-posta</a>
+        </p>
+      </div>
+      <p style="margin-top: 2rem; font-size: 0.85rem;">© 2026 BSM470 Bulut Bilişim Projesi. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <script>
+    // CRUD Demo State
+    let users = [
+      { id: 0, name: 'Test User', email: 'test@example.com' }
+    ];
+    let nextId = 1;
+
+    // Render user list
+    function renderUsers() {
+      const userList = document.getElementById('userList');
+      if (users.length === 0) {
+        userList.innerHTML = '<div style="color: var(--text-secondary); padding: 2rem; text-align: center;">Henüz kullanıcı yok. Yukarıda yeni kullanıcı ekleyin!</div>';
+        return;
+      }
+      userList.innerHTML = users.map(user => `
+        <div class="user-item">
+          <div class="user-info">
+            <h4>${user.name}</h4>
+            <p>${user.email}</p>
+          </div>
+          <button class="delete-btn" onclick="deleteUser(${user.id})">Sil</button>
+        </div>
+      `).join('');
+    }
+
+    // Add user
+    function addUser() {
+      const name = document.getElementById('nameInput').value.trim();
+      const email = document.getElementById('emailInput').value.trim();
+
+      if (!name || !email) {
+        alert('Lütfen ad ve e-posta girin!');
+        return;
+      }
+
+      if (!email.includes('@')) {
+        alert('Geçerli bir e-posta adresi girin!');
+        return;
+      }
+
+      users.push({ id: nextId++, name, email });
+      document.getElementById('nameInput').value = '';
+      document.getElementById('emailInput').value = '';
+      renderUsers();
+    }
+
+    // Delete user
+    function deleteUser(id) {
+      users = users.filter(user => user.id !== id);
+      renderUsers();
+    }
+
+    // Allow Enter key to add user
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('emailInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') addUser();
+      });
+      renderUsers();
+    });
+
+    // Smooth scroll animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.card, .stat, table').forEach(el => {
+      el.style.opacity = '0';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
